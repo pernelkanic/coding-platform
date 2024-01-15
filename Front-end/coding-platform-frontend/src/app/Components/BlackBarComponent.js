@@ -5,7 +5,7 @@ export default function BlackBarComponent() {
   return (
     
     <div>
-        <div className='bg-black pt-5 pb-3 pl-3 w-[60rem] flex flex-col gap-8 justify-center'> 
+        <div className='bg-black pt-5 pb-3 pl-5 w-[60rem] flex flex-col gap-8 justify-center'> 
     <Image
       src="/erdos.svg"
       width={250}

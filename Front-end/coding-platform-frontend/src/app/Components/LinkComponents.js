@@ -1,44 +1,104 @@
+import { SignOutButton, auth } from "@clerk/nextjs";
+import Link from "next/link";
 
-export default function LinkComponents(){
+
+export default async function LinkComponents(){
+  const{ userId } = await auth();
+  const isAuth = !!userId;
+  
+ 
     const links = [
        { 
         index: 1,
-        namelink:"About" 
+        namelink:"About" ,
+        source:"/about"
     },
     {
         index: 2,
-        namelink:"Activity" 
+        namelink:"Activity",
+        source:"/activity"
       },
       {
         index: 3,
-        namelink:"Problems" 
+        namelink:"Problems",
+        source:"/problems" 
       },
       {
         index: 4,
-        namelink:"Competitions" 
+        namelink:"Competitions",
+        source:"/competitions" 
       },
       {
         index: 5,
-        namelink:"Leaderboard" 
+        namelink:"Leaderboard",
+        source:"/leaderboard" 
       },
-      {
-        index: 6,
-        namelink:"Login" 
-      }
+    
+      
+      
 
     ];
+
     return(
-        <div className="text-white flex  gap-4 ">
+        
             
-            {links.map((link,index)=>{
-               return( 
+           <>
+           {
+            isAuth?
+            (
+
+              <div className="text-[#888]  flex  gap-4 ">
+              {links.map((link,index)=>{
+               
+            return(
+            <ul >
+             <Link href={link.source}>
+               <button key={index} className="hover:text-white">
+               {link.namelink}
+               </button>
+             </Link>
+             
+             </ul>
+             
+            )
+           
+         }
+         )
+         }
+        
+         <SignOutButton>
+             <button className="hover:text-white" >Logout</button>
+            </SignOutButton>
+          
+         </div>
+            ):(
+              <div className="text-[#888]  flex  gap-4 ">
+                 {links.map((link,index)=>{
+                  
+               return(
                <ul >
-               <li key={index}>
-                <a>{link.namelink}</a> 
-                </li>
+                <Link href={link.source}>
+                  <button key={index} className="hover:text-white">
+                  {link.namelink}
+                  </button>
+                </Link>
                 </ul>
                )
-            })}
-        </div>
+              }
+            
+            )
+            }
+             <Link href="/sign-in">
+             <button className="hover:text-white">Login</button>
+             </Link>
+            </div>
+            
+    )
+          }
+            
+            
+            
+            
+            </>
     )
 }
