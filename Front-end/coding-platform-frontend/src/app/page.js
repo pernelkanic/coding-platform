@@ -1,9 +1,17 @@
+
+import AboutBarComponent from "./Components/AboutBarComponent";
 import BlackBarComponent from "./Components/BlackBarComponent";
 
+
+
 export default function Home() {
+  
   return (
-    <main className="bg-slate-100 flex justify-center">
+    <main className=" flex flex-col ml-[30em]">
       <BlackBarComponent/>
+
+      <AboutBarComponent />
+      {/* <CodeEditor/> */}
     </main>
   )
 }
