@@ -1,3 +1,4 @@
+
 import { SignOutButton, auth } from "@clerk/nextjs";
 import Link from "next/link";
 
@@ -52,7 +53,7 @@ export default async function LinkComponents(){
                
             return(
             <ul >
-             <Link href={link.source}>
+             <Link href="/Components/Problems" >
                <button key={index} className="hover:text-white">
                {link.namelink}
                </button>
