@@ -8,6 +8,7 @@ export default function Home() {
   
   return (
     <main className=" flex flex-col ml-[30em]">
+    
       <BlackBarComponent/>
 
       <AboutBarComponent />

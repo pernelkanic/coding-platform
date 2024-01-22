@@ -1,10 +1,11 @@
 'use client'
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-
 export default function ProblemsetContainer(){
     let[problemdata, setproblemdata] = useState([]);
    let[loading, setLoading]= useState(false);
-    
+    const router = useRouter();
     useEffect(()=>{
         setLoading(true);
         fetch("http://localhost:5000/api/problems")
@@ -14,7 +15,6 @@ export default function ProblemsetContainer(){
             setproblemdata(data)
             
         })
-       
     },[])
 
     return (
@@ -24,14 +24,14 @@ export default function ProblemsetContainer(){
             {
                !loading ? (problemdata.map((problems,index)=>
                     <div key={index} className="">
-                   <button className="mb-4">{problems.title}</button>
-                   <hr className="mt-4 w-[50em]" ></hr>
+                   <Link 
+                    href={`/Components/Problem/${problems.title}`}  
+                    className="mb-4">{problems.title}</Link>
+                    <hr className="mt-4 w-[50em]"></hr>
                    </div>
-                
                 )):(
                     <>loading...</>
                 )
-                
             }
             </ul>
         </div>
