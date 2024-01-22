@@ -7,7 +7,7 @@ import BlackBarComponent from "./Components/BlackBarComponent";
 export default function Home() {
   
   return (
-    <main className=" flex flex-col ml-[30em]">
+    <main className=" about-flex-container ">
     
       <BlackBarComponent/>
 

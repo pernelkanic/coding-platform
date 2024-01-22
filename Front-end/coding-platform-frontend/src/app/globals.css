@@ -15,9 +15,17 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+.about-flex-container{
+    display: flex;
 
+    flex-direction: column;
+    align-items: center;
+  
+}
 .problem-flex-container{
   display: flex;
   flex-direction: column;
+  ;
+
   align-items: baseline;
 }

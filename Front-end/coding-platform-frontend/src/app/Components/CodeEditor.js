@@ -28,7 +28,7 @@ const CodeEditor = () => {
       <LanguagesDropdown onSelectChange={onSelectChange} />
       <MonacoEditor
         height="70vh"
-        width={`99vh`}
+        width={`180vh`}
         language={language.value || "javascript"}
         value={value}
         theme="vs-dark"
