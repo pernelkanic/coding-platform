@@ -5,7 +5,7 @@ import MonacoEditor from "@monaco-editor/react";
 import { languageOptions } from "../Constants/languageOptions";
 import LanguagesDropdown from "./LanguageDropdown";
 
-const CodeEditor = () => {
+const CodeEditor = ({setCode}) => {
   const [value, setValue] = useState("");
 
   const handleEditorChange = (value) => {
@@ -33,7 +33,7 @@ const CodeEditor = () => {
         value={value}
         theme="vs-dark"
         defaultValue="// some comment"
-        onChange={(e)=>handleEditorChange(e)}
+        onChange={(e)=>setCode(e)}
       />
     </div>
   );
