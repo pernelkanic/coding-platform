@@ -5,7 +5,7 @@ import MonacoEditor from "@monaco-editor/react";
 import { languageOptions } from "../Constants/languageOptions";
 import LanguagesDropdown from "./LanguageDropdown";
 
-const CodeEditor = ({setCode}) => {
+const CodeEditor = ({setCode ,setLanguageapi}) => {
   const [value, setValue] = useState("");
 
   const handleEditorChange = (value) => {
@@ -15,9 +15,11 @@ const CodeEditor = ({setCode}) => {
   const [language, setLanguage] = useState(languageOptions[0].value);
   
   const onSelectChange = (sl) => {
-    console.log("selected Option...", sl.value);
+ 
     setValue("");
+    setLanguageapi(sl.name);
     setLanguage(sl);
+    
   }; 
 
 

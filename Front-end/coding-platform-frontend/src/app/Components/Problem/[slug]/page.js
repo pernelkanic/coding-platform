@@ -8,8 +8,12 @@ export default function ProblemsSets  ({params})  {
    let[loading, setLoading]= useState(false);
   let[code, setCode] = useState("");
   let[token, setToken] = useState(null);
+  let[languageapi, setLanguageapi]= useState("");
+  let[id, setId] = useState(null);
   let[res, setres] = useState("");
-    useEffect(()=>{
+  let[languages, setLanguages] = useState([]);
+   
+  useEffect(()=>{
         setLoading(true);
         fetch("http://localhost:5000/api/problems")
         .then(response => response.json())
@@ -19,8 +23,38 @@ export default function ProblemsSets  ({params})  {
             
         })
     },[])
+
    async function handleClick(){
-      
+   
+    //get all languages
+    const langoptions = {
+      method: 'GET',
+      url: `https://judge0-ce.p.rapidapi.com/languages/`,
+      headers: {
+        'X-RapidAPI-Key': 'c57044529amsh40f0210b6269090p1e8d62jsn94da47e1fa32',
+        'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+      }
+    };
+    try {
+      if(languages.length == 0){
+      const response = await axios.request(langoptions);
+      setLanguages(response.data);
+    }
+      languages.forEach(element => {
+       
+        if(element.name === languageapi){
+          
+          setId(element.id);
+          
+        }
+      });
+    } catch (error) {
+      console.error(error);
+    }
+
+
+      // post request for the submission of code
+      if(id != null){
       const options = {
         method: 'POST',
         url: 'https://judge0-ce.p.rapidapi.com/submissions',
@@ -35,11 +69,12 @@ export default function ProblemsSets  ({params})  {
           'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
         },
         data: {
-          language_id: 62,
+          language_id: `${id}`,
           source_code: base64_encode(code),
         }
       };
-      
+
+      //post req of the code into the judge0api and storing the token into state
       try {
         const response = await axios.request(options);
         await setToken(response.data);
@@ -49,6 +84,10 @@ export default function ProblemsSets  ({params})  {
         console.error(error);
       }
     }
+    }
+
+
+    //get the output of the code using token from the post request
    async function getResult({token}){
     const geturl = `https://judge0-ce.p.rapidapi.com/submissions/${token}?base64_encoded=true&fields=*`;
           const getoptions = {
@@ -62,7 +101,9 @@ export default function ProblemsSets  ({params})  {
           try {
             const response = await fetch(geturl, getoptions);
             const result = await response.text();
+            
             setres(JSON.parse(result).stdout);
+            
           } catch (error) {
             console.error(error);
           }
@@ -76,7 +117,7 @@ export default function ProblemsSets  ({params})  {
             if(params.slug == problem.title){
               return(
               <div>
-                <p className="text-center   text-xl mt-4">{problem.title}</p>
+                <p className="text-center   text-xl mt-4" key={index}>{problem.title}</p>
                 <br></br>
                 
                 <p className="ml-3">Problem Description:</p>
@@ -92,7 +133,7 @@ export default function ProblemsSets  ({params})  {
           })
         }
         <div className="w-full mt-10">
-        <CodeEditor setCode = {setCode} />
+        <CodeEditor setCode = {setCode} setLanguageapi={setLanguageapi} />
         <div className="flex justify-end mt-6 gap-6 mr-8">
           <button className=" bg-[#454545] text-white p-2 rounded-md" onClick={handleClick}>Run</button>
           <button className="bg-[#2CBB5D] text-white p-2 rounded-md">Submit</button>
