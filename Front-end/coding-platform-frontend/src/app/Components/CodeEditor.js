@@ -1,11 +1,10 @@
 'use client'
 import { useState } from "react";
 
-import MonacoEditor from "@monaco-editor/react";
+import { Editor } from "@monaco-editor/react";
 import { languageOptions } from "../Constants/languageOptions";
 import LanguagesDropdown from "./LanguageDropdown";
-
-const CodeEditor = ({setCode ,setLanguageapi}) => {
+const CodeEditor = ({setCode ,setLanguageapi ,setId}) => {
   const [value, setValue] = useState("");
 
   const handleEditorChange = (value) => {
@@ -17,9 +16,10 @@ const CodeEditor = ({setCode ,setLanguageapi}) => {
   const onSelectChange = (sl) => {
  
     setValue("");
+    console.log(sl.name);
     setLanguageapi(sl.name);
     setLanguage(sl);
-    
+    setId(sl.id);
   }; 
 
 
@@ -28,10 +28,10 @@ const CodeEditor = ({setCode ,setLanguageapi}) => {
       
     <div className="overlay rounded-md overflow-hidden w-full h-full shadow-4xl">
       <LanguagesDropdown onSelectChange={onSelectChange} />
-      <MonacoEditor
+      <Editor
         height="70vh"
         width={`180vh`}
-        language={language.value || "javascript"}
+        language={language}
         value={value}
         theme="vs-dark"
         defaultValue="// some comment"

@@ -26,31 +26,31 @@ export default function ProblemsSets  ({params})  {
 
    async function handleClick(){
    
-    //get all languages
-    const langoptions = {
-      method: 'GET',
-      url: `https://judge0-ce.p.rapidapi.com/languages/`,
-      headers: {
-        'X-RapidAPI-Key': 'c57044529amsh40f0210b6269090p1e8d62jsn94da47e1fa32',
-        'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
-      }
-    };
-    try {
-      if(languages.length == 0){
-      const response = await axios.request(langoptions);
-      setLanguages(response.data);
-    }
-      languages.forEach(element => {
+    // //get all languages
+    // const langoptions = {
+    //   method: 'GET',
+    //   url: `https://judge0-ce.p.rapidapi.com/languages/`,
+    //   headers: {
+    //     'X-RapidAPI-Key': 'c57044529amsh40f0210b6269090p1e8d62jsn94da47e1fa32',
+    //     'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+    //   }
+    // };
+    // try {
+    //   if(languages.length == 0){
+    //   const response = await axios.request(langoptions);
+    //   setLanguages(response.data);
+    // }
+    //   languages.forEach(element => {
        
-        if(element.name === languageapi){
+    //     if(element.name === languageapi){
           
-          setId(element.id);
+    //       setId(element.id);
           
-        }
-      });
-    } catch (error) {
-      console.error(error);
-    }
+    //     }
+    //   });
+    // } catch (error) {
+    //   console.error(error);
+    // }
 
 
       // post request for the submission of code
@@ -133,7 +133,7 @@ export default function ProblemsSets  ({params})  {
           })
         }
         <div className="w-full mt-10">
-        <CodeEditor setCode = {setCode} setLanguageapi={setLanguageapi} />
+        <CodeEditor setCode = {setCode} setLanguageapi={setLanguageapi} setId ={setId}/>
         <div className="flex justify-end mt-6 gap-6 mr-8">
           <button className=" bg-[#454545] text-white p-2 rounded-md" onClick={handleClick}>Run</button>
           <button className="bg-[#2CBB5D] text-white p-2 rounded-md">Submit</button>
