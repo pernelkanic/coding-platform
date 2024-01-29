@@ -12,7 +12,7 @@ export default function ProblemsSets  ({params})  {
   let[id, setId] = useState(null);
   let[res, setres] = useState("");
   let[languages, setLanguages] = useState([]);
-  let testcasesample = "1 1 2 3 4 5";
+   
   useEffect(()=>{
         setLoading(true);
         fetch("http://localhost:5000/api/problems")
@@ -25,7 +25,7 @@ export default function ProblemsSets  ({params})  {
     },[])
 
    async function handleClick(){
- 
+   
     // //get all languages
     // const langoptions = {
     //   method: 'GET',
@@ -52,7 +52,7 @@ export default function ProblemsSets  ({params})  {
     //   console.error(error);
     // }
 
-      
+
       // post request for the submission of code
       if(id != null){
       const options = {
@@ -71,7 +71,6 @@ export default function ProblemsSets  ({params})  {
         data: {
           language_id: `${id}`,
           source_code: base64_encode(code),
-          stdin: base64_encode(testcasesample)
         }
       };
 
@@ -139,11 +138,9 @@ export default function ProblemsSets  ({params})  {
           <button className=" bg-[#454545] text-white p-2 rounded-md" onClick={handleClick}>Run</button>
           <button className="bg-[#2CBB5D] text-white p-2 rounded-md">Submit</button>
         </div>
-          <div>
           {
            base64_decode(res)
           }
-          </div>
         </div>
         </div>
       </div>
