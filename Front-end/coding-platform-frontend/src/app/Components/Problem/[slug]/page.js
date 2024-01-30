@@ -12,7 +12,7 @@ export default function ProblemsSets  ({params})  {
   let[id, setId] = useState(null);
   let[res, setres] = useState("");
   let[languages, setLanguages] = useState([]);
-   
+   let testcases = "2  5 1 2 3 4 5 4 23 21 20 19 ";
   useEffect(()=>{
         setLoading(true);
         fetch("http://localhost:5000/api/problems")
@@ -71,6 +71,7 @@ export default function ProblemsSets  ({params})  {
         data: {
           language_id: `${id}`,
           source_code: base64_encode(code),
+          stdin:base64_encode(testcases)
         }
       };
 
@@ -101,8 +102,12 @@ export default function ProblemsSets  ({params})  {
           try {
             const response = await fetch(geturl, getoptions);
             const result = await response.text();
-            
+            if(JSON.parse(result).stdout != null){
             setres(JSON.parse(result).stdout);
+          }
+          else{
+            setres(JSON.parse(result).stderr);
+          }
             
           } catch (error) {
             console.error(error);
