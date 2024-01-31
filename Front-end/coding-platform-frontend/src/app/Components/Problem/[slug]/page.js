@@ -1,8 +1,11 @@
 'use client'
+import { TestCases } from '@/app/Constants/TestCases';
 import axios from 'axios';
 import { decode as base64_decode, encode as base64_encode } from 'base-64';
 import { useEffect, useState } from "react";
 import CodeEditor from "../../CodeEditor";
+
+
 export default function ProblemsSets  ({params})  {
   let[problemdata, setproblemdata] = useState([]);
    let[loading, setLoading]= useState(false);
@@ -11,8 +14,11 @@ export default function ProblemsSets  ({params})  {
   let[languageapi, setLanguageapi]= useState("");
   let[id, setId] = useState(null);
   let[res, setres] = useState("");
+  let[status, setStatus] = useState("");
   let[languages, setLanguages] = useState([]);
-   let testcases = "2  5 1 2 3 4 5 4 23 21 20 19 ";
+   const[testCase , setTestCase] = useState(null);
+   const[output , setOutput] = useState(null);
+   const test = "1 anagram nagaram "
   useEffect(()=>{
         setLoading(true);
         fetch("http://localhost:5000/api/problems")
@@ -20,8 +26,14 @@ export default function ProblemsSets  ({params})  {
         .then((data)=>{
             setLoading(false);
             setproblemdata(data)
-            
         })
+        TestCases.forEach((el)=>{
+          if(el.title ===  problemdata.title){
+            setTestCase(el.testcase.concat(" " , el.inputs));
+            setOutput(el.outputs)
+          }
+        })
+        
     },[])
 
    async function handleClick(){
@@ -71,7 +83,8 @@ export default function ProblemsSets  ({params})  {
         data: {
           language_id: `${id}`,
           source_code: base64_encode(code),
-          stdin:base64_encode(testcases)
+          stdin:{test},
+          expected_output: {output}
         }
       };
 
@@ -103,7 +116,10 @@ export default function ProblemsSets  ({params})  {
             const response = await fetch(geturl, getoptions);
             const result = await response.text();
             if(JSON.parse(result).stdout != null){
+
             setres(JSON.parse(result).stdout);
+            setStatus(JSON.parse(result).status.description);
+
           }
           else{
             setres(JSON.parse(result).stderr);
@@ -144,7 +160,10 @@ export default function ProblemsSets  ({params})  {
           <button className="bg-[#2CBB5D] text-white p-2 rounded-md">Submit</button>
         </div>
           {
-           base64_decode(res)
+         
+          base64_decode(status).concat(" ",base64_decode(res))
+           
+          
           }
         </div>
         </div>
