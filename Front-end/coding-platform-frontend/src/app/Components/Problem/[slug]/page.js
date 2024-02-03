@@ -27,17 +27,26 @@ export default function ProblemsSets  ({params})  {
             setLoading(false);
             setproblemdata(data)
         })
-        TestCases.forEach((el)=>{
-          if(el.title ===  problemdata.title){
-            setTestCase(el.testcase.concat(" " , el.inputs));
-            setOutput(el.outputs)
-          }
-        })
-        
+       
+     
     },[])
 
    async function handleClick(){
-   
+  
+      
+      TestCases.forEach((el)=>{
+        
+        if(el.title ===  params.slug){
+          
+          
+          setTestCase(el.testcase + " " + el.inputs);
+          console.log(testCase)
+          setOutput(el.outputs)
+          
+        }
+      })
+      
+ 
     // //get all languages
     // const langoptions = {
     //   method: 'GET',
@@ -83,7 +92,7 @@ export default function ProblemsSets  ({params})  {
         data: {
           language_id: `${id}`,
           source_code: base64_encode(code),
-          stdin:{test},
+          stdin:base64_encode(testCase),
           expected_output: {output}
         }
       };
@@ -92,7 +101,6 @@ export default function ProblemsSets  ({params})  {
       try {
         const response = await axios.request(options);
         await setToken(response.data);
-       
         getResult(token)
       } catch (error) {
         console.error(error);
