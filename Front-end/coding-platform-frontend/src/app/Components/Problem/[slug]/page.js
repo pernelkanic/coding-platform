@@ -14,7 +14,7 @@ export default function ProblemsSets  ({params})  {
   let[languageapi, setLanguageapi]= useState("");
   let[id, setId] = useState(null);
   let[res, setres] = useState("");
-  let[status, setStatus] = useState("");
+  let[status, setStatus] = useState(null);
   let[languages, setLanguages] = useState([]);
    const[testCase , setTestCase] = useState(null);
    const[output , setOutput] = useState(null);
@@ -124,7 +124,7 @@ export default function ProblemsSets  ({params})  {
             const response = await fetch(geturl, getoptions);
             const result = await response.text();
             if(JSON.parse(result).stdout != null){
-
+            console.log(JSON.parse(result).status.description);
             setres(JSON.parse(result).stdout);
             setStatus(JSON.parse(result).status.description);
 
@@ -166,10 +166,15 @@ export default function ProblemsSets  ({params})  {
         <div className="flex justify-end mt-6 gap-6 mr-8">
           <button className=" bg-[#454545] text-white p-2 rounded-md" onClick={handleClick}>Run</button>
           <button className="bg-[#2CBB5D] text-white p-2 rounded-md">Submit</button>
+        <div>
+          {
+            status
+          }
+        </div>
         </div>
           {
-         
-          base64_decode(status).concat(" ",base64_decode(res))
+            
+          status.concat(" ",base64_decode(res))
            
           
           }
