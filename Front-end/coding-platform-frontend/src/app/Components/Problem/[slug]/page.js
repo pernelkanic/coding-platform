@@ -4,6 +4,7 @@ import axios from 'axios';
 import { decode as base64_decode, encode as base64_encode } from 'base-64';
 import { useEffect, useState } from "react";
 import CodeEditor from "../../CodeEditor";
+import OutputComponent from '../../OutputComponent';
 
 
 export default function ProblemsSets  ({params})  {
@@ -18,7 +19,7 @@ export default function ProblemsSets  ({params})  {
   let[languages, setLanguages] = useState([]);
    const[testCase , setTestCase] = useState(null);
    const[output , setOutput] = useState(null);
-   const test = "1 anagram nagaram "
+   
   useEffect(()=>{
         setLoading(true);
         fetch("http://localhost:5000/api/problems")
@@ -33,7 +34,7 @@ export default function ProblemsSets  ({params})  {
 
    async function handleClick(){
   
-      
+      setLoading(true);
       TestCases.forEach((el)=>{
         
         if(el.title ===  params.slug){
@@ -101,8 +102,11 @@ export default function ProblemsSets  ({params})  {
       try {
         const response = await axios.request(options);
         await setToken(response.data);
-        getResult(token)
+        setLoading(false);
+        getResult(token);
+        
       } catch (error) {
+        setLoading(false);
         console.error(error);
       }
     }
@@ -167,17 +171,23 @@ export default function ProblemsSets  ({params})  {
           <button className=" bg-[#454545] text-white p-2 rounded-md" onClick={handleClick}>Run</button>
           <button className="bg-[#2CBB5D] text-white p-2 rounded-md">Submit</button>
         <div>
-          {
-            status
-          }
-        </div>
-        </div>
-          {
-            
-          status.concat(" ",base64_decode(res))
-           
           
-          }
+        </div>
+       
+        </div>
+        <div className='mt-14'>
+        { !loading ? (
+            <OutputComponent 
+            testcase={testCase}
+            output={output}
+            actout={base64_decode(res)}
+            />
+        ):(
+           <>Loading...</>
+        )
+          
+        } 
+          </div>
         </div>
         </div>
       </div>
