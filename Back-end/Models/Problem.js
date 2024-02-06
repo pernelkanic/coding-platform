@@ -14,6 +14,10 @@ description:{
 examples:{
     type:String,
     required:true
+},
+user:{
+    type:Schema.Types.ObjectId,
+    ref:"Users"
 }
 },{timestamps:true}
 )
