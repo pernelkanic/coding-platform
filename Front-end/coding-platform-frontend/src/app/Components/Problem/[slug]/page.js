@@ -5,6 +5,7 @@ import { decode as base64_decode, encode as base64_encode } from 'base-64';
 import { useEffect, useState } from "react";
 import CodeEditor from "../../CodeEditor";
 import OutputComponent from '../../OutputComponent';
+import SubmitComponent from '../../SubmitComponent';
 
 
 export default function ProblemsSets  ({params})  {
@@ -169,7 +170,16 @@ export default function ProblemsSets  ({params})  {
         <CodeEditor setCode = {setCode} setLanguageapi={setLanguageapi} setId ={setId}/>
         <div className="flex justify-end mt-6 gap-6 mr-8">
           <button className=" bg-[#454545] text-white p-2 rounded-md" onClick={handleClick}>Run</button>
-          <button className="bg-[#2CBB5D] text-white p-2 rounded-md">Submit</button>
+          <SubmitComponent 
+          
+          code={code}
+          id={id}
+          slug ={params.slug}
+          
+          output={output}
+
+          />
+          
         <div>
           
         </div>
