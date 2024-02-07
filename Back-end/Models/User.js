@@ -8,9 +8,20 @@ const UserSchema = new mongoose.Schema(
       firstName: String,
       lastName: String,
       problems:[{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"problems"
-      }]
+       Name:{
+          type:String
+        },
+        Language:{
+          type:String
+        },
+        Code:{
+          type:String
+        },
+        Status:{
+          type:String
+        }
+
+      }],
     },
     { timestamps: true }
   );

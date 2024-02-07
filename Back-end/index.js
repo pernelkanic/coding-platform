@@ -8,7 +8,7 @@ var problemroutes = require('./Routes/ProblemRoutes');
 var bodyParser = require('body-parser');
 var express = require('express');
 const { Webhook } = require('svix');
-
+var submitroutes = require('./Routes/submitroutes')
 const { Users } = require('./Models/User');
 dotenv.config();
 const app = express();
@@ -35,7 +35,7 @@ app.use((req,res,next)=>{
 
 
 app.use('/api/problems' ,problemroutes);
-
+app.use('/api/Submit' ,submitroutes);
 app.post( '/api/webhook',
 bodyParser.raw({type: 'application/json'}),
     async function (req, res) {
