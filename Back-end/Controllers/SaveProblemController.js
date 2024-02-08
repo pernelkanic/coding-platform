@@ -2,22 +2,23 @@ var mongoose = require('mongoose')
 const models = require('../Models/User');
 const submitprob = models.Users;
 const submitProblem =async (req,res)=>{
-    const {name,code,status} = req.body;
+    const {Name,Code,Status} = req.body;
+   console.log(Code);
     try{
-        const updateDoc = {
-            $set: {
-                "problems.Name": `${name}`,
+     
+        const problemscreate  = await submitprob.updateOne({ firstName:"Venkata" },
+        {
+            $set:{
+                "problems":{
+                    "Name":`${Name}`,
+                    "Code":`${Code}`,
+                    "Status":`${Status}`
+                }
             },
-            $set: {
-                "problems.Code":`${code}`,
-            },
-            $set: {
-                "problems.$[].Status":`${status}`
-            }
-          };
-
-        const problemscreate  = await submitprob.updateOne(updateDoc);
-       
+            $currentDate: { lastUpdated: true }
+          }
+        );
+        
         res.status(200).json(problemscreate);
     
  }

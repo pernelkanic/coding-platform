@@ -10,6 +10,7 @@ export default function SubmitComponent ({code , id ,slug}) {
    let[token, setToken] = useState(null);
    let[res, setres] = useState("");
    let[status, setStatus] = useState(null)
+   let[data,setData] = useState(null);
     async function handleSubmit(){
         setLoading(true);
         TestCases.forEach((el)=>{
@@ -55,6 +56,7 @@ export default function SubmitComponent ({code , id ,slug}) {
           await setToken(response.data);
           setLoading(false);
           await getResult(token);
+        
           if(status === 'Accepted'){
             saveDb()
           }
@@ -97,34 +99,35 @@ export default function SubmitComponent ({code , id ,slug}) {
     }
 }
 async function saveDb (){
-    var data={
+    let backdata={
         Name:slug,
         Code:code,
         Status:status
     }
-   
-    fetch('http://localhost:5000/api/Submit', {
+    
+    await fetch('http://localhost:5000/api/Submit', {
             method: 'POST',
-            body: JSON.stringify(data),
+            body: JSON.stringify(backdata),
             headers: {
                 'Content-Type': 'application/json'
             },
         })
         .then(res => res.json())
-        .then(data => console.log(data));
+        .then(data => setData(data));
        
 }
  return (
     <div>
         <button className="bg-[#2CBB5D] text-white p-2 rounded-md" onClick={handleSubmit}>Submit</button>
-       <br></br>
-        { !loading && status ? (
-           <> </>
+        <div className='mt-3'>
+        { !loading && data && status == 'Accepted'? (
+           <>Your Solution is Accepted</>
         ):(
            <></>
         )
           
         }  
+        </div>
   
     </div>
  )   
