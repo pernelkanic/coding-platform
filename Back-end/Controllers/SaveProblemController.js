@@ -3,12 +3,12 @@ const models = require('../Models/User');
 const submitprob = models.Users;
 const submitProblem =async (req,res)=>{
     const {Name,Code,Status} = req.body;
-   console.log(Code);
+  
     try{
      
         const problemscreate  = await submitprob.updateOne({ firstName:"Venkata" },
         {
-            $set:{
+            $push:{
                 "problems":{
                     "Name":`${Name}`,
                     "Code":`${Code}`,
@@ -27,7 +27,16 @@ const submitProblem =async (req,res)=>{
  
  }
  }
+ const getProblem = async(req,res)=>{
+    
+    try{
+        const getProblem = await submitprob.findOne()
+    }
+    catch(err){
+        res.status(400).json({message:err.message})
+    }
+ }
 module.exports ={
-
+    getProblem,
     submitProblem
 }

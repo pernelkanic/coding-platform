@@ -53,7 +53,7 @@ export default async function LinkComponents(){
                
             return(
             <ul >
-             <Link href="/Components/Problems" >
+             <Link href={`/Components/${link.namelink}`} >
                <button key={index} className="hover:text-white">
                {link.namelink}
                </button>
