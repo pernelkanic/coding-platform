@@ -36,6 +36,8 @@ app.use((req,res,next)=>{
 
 app.use('/api/problems' ,problemroutes);
 app.use('/api/Submit' ,submitroutes);
+app.use('/api/Submit' ,submitroutes);
+
 app.post( '/api/webhook',
 bodyParser.raw({type: 'application/json'}),
     async function (req, res) {
