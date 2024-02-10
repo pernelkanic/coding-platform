@@ -25,7 +25,7 @@ app.use((req, res, next) => {
   if (req.originalUrl === '/api/webhook') {
     next(); // Do nothing with the body because I need it in a raw state.
   } else {
-    express.json()(req, res, next);  // ONLY do express.json() if the received request is NOT a WebHook from Stripe.
+    express.json()(req, res, next);  // ONLY do express.json() if the received request is NOT a WebHook from clerk.
   }
 });
 app.use((req,res,next)=>{
@@ -37,7 +37,7 @@ app.use((req,res,next)=>{
 app.use('/api/problems' ,problemroutes);
 app.use('/api/Submit' ,submitroutes);
 app.use('/api/Submit' ,submitroutes);
-
+const user = null;
 app.post( '/api/webhook',
 bodyParser.raw({type: 'application/json'}),
     async function (req, res) {
@@ -59,7 +59,7 @@ bodyParser.raw({type: 'application/json'}),
 
     const firstName = attributes.first_name;
     const lastName = attributes.last_name;
-
+    user = firstName;
     const user = new Users({
       clerkUserId: id,
       firstName: firstName,

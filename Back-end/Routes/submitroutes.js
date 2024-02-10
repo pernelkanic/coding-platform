@@ -1,8 +1,8 @@
 
 const express = require('express')
 const router = express.Router();
-var {submitProblem} = require('../Controllers/SaveProblemController')
-router.get('/' , getProblem);
+var {submitProblem,getProblem} = require('../Controllers/SaveProblemController')
+router.get('/:id' , getProblem);
 router.post('/' , submitProblem);
 // router.delete('/:id' , deleteProblem);
 // router.post('/', createProblem);

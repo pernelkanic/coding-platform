@@ -1,3 +1,4 @@
+import { useAuth } from '@clerk/nextjs';
 import axios from 'axios';
 import { encode as base64_encode } from 'base-64';
 import { useState } from "react";
@@ -11,6 +12,7 @@ export default function SubmitComponent ({code , id ,slug}) {
    let[res, setres] = useState("");
    let[status, setStatus] = useState(null)
    let[data,setData] = useState(null);
+   const { userId} = useAuth();
     async function handleSubmit(){
         setLoading(true);
         TestCases.forEach((el)=>{
@@ -105,7 +107,7 @@ async function saveDb (){
         Status:status
     }
     
-    await fetch('http://localhost:5000/api/Submit', {
+    await fetch(`http://localhost:5000/api/Submit/${userId}`, {
             method: 'POST',
             body: JSON.stringify(backdata),
             headers: {

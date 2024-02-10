@@ -1,12 +1,13 @@
 var mongoose = require('mongoose')
 const models = require('../Models/User');
+const index = require('../index');
 const submitprob = models.Users;
 const submitProblem =async (req,res)=>{
     const {Name,Code,Status} = req.body;
   
     try{
      
-        const problemscreate  = await submitprob.updateOne({ firstName:"Venkata" },
+        const problemscreate  = await submitprob.updateOne({clerkUserId:`${req.params.id}` },
         {
             $push:{
                 "problems":{
@@ -30,7 +31,10 @@ const submitProblem =async (req,res)=>{
  const getProblem = async(req,res)=>{
     
     try{
-        const getProblem = await submitprob.findOne()
+        const getProblem = await submitprob.findOne({clerkUserId:`${req.params.id}` })
+        const problemtitle = getProblem.problems;
+        res.status(200).json({problemtitle});
+
     }
     catch(err){
         res.status(400).json({message:err.message})

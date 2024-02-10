@@ -5,15 +5,18 @@ import { useEffect, useState } from "react";
 export default function ProblemsetContainer(){
     let[problemdata, setproblemdata] = useState([]);
    let[loading, setLoading]= useState(false);
+
+  
     const router = useRouter();
     useEffect(()=>{
+        
         setLoading(true);
         fetch("http://localhost:5000/api/problems")
         .then(response => response.json())
         .then((data)=>{
             setLoading(false);
             setproblemdata(data)
-            
+          
         })
     },[])
 
@@ -26,7 +29,7 @@ export default function ProblemsetContainer(){
                     <div key={index} className="">
                    <Link 
                     href={`/Components/Problem/${problems.title}`}  
-                    className="mb-4">{problems.title}</Link>
+                    className="mb-4">{problems.title} </Link>
                     <hr className="mt-4 w-[50em]"></hr>
                    </div>
                 )):(
