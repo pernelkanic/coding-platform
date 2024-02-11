@@ -35,8 +35,8 @@ app.use((req,res,next)=>{
 
 
 app.use('/api/problems' ,problemroutes);
-app.use('/api/Submit' ,submitroutes);
-app.use('/api/Submit' ,submitroutes);
+app.use('/api/submit' ,submitroutes);
+app.use('/api/submit' ,submitroutes);
 const user = null;
 app.post( '/api/webhook',
 bodyParser.raw({type: 'application/json'}),
@@ -59,7 +59,7 @@ bodyParser.raw({type: 'application/json'}),
 
     const firstName = attributes.first_name;
     const lastName = attributes.last_name;
-    user = firstName;
+    
     const user = new Users({
       clerkUserId: id,
       firstName: firstName,

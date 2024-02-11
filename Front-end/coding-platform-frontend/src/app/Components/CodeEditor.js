@@ -11,6 +11,7 @@ const CodeEditor = ({setCode ,setLanguageapi ,setId}) => {
     setValue(value);
 
   };
+  
   const [language, setLanguage] = useState(languageOptions[0].value);
   
   const onSelectChange = (sl) => {
