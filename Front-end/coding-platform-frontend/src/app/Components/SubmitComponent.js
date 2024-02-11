@@ -12,7 +12,7 @@ export default function SubmitComponent ({code , id ,slug}) {
    let[res, setres] = useState("");
    let[status, setStatus] = useState(null)
    let[data,setData] = useState(null);
-   const { userId} = useAuth();
+   const {  userId} = useAuth();
     async function handleSubmit(){
         setLoading(true);
         TestCases.forEach((el)=>{

@@ -102,9 +102,12 @@ export default function ProblemsSets  ({params})  {
       //post req of the code into the judge0api and storing the token into state
       try {
         const response = await axios.request(options);
-        await setToken(response.data);
+        setToken(response.data);
+        
         setLoading(false);
+        if(token)
         getResult(token);
+        setTimeout(10);
         
       } catch (error) {
         setLoading(false);
@@ -113,7 +116,7 @@ export default function ProblemsSets  ({params})  {
     }
     }
 
-
+    
     //get the output of the code using token from the post request
    async function getResult({token}){
     const geturl = `https://judge0-ce.p.rapidapi.com/submissions/${token}?base64_encoded=true&fields=*`;
@@ -129,7 +132,7 @@ export default function ProblemsSets  ({params})  {
             const response = await fetch(geturl, getoptions);
             const result = await response.text();
             if(JSON.parse(result).stdout != null){
-            console.log(JSON.parse(result).status.description);
+            
             setres(JSON.parse(result).stdout);
             setStatus(JSON.parse(result).status.description);
 

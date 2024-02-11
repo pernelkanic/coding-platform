@@ -22,7 +22,7 @@ export default function Problems(){
             <>
         <div className="bg-white shadow-lg   mt-2 w-[60.4em] h-[40em] rounded-lg problem-flex-container">
         <ul className="flex flex-col mt-8 ml-20 gap-8" >
-            {
+            {Dt?(
             Dt.map((dt, index)=>{
 
                     return(<li key={index}>
@@ -30,7 +30,11 @@ export default function Problems(){
                     <hr className="mt-4 w-[50em]"></hr>
                     </li>)
                 
-            })
+            })):(
+                <>
+                    There are No submitted Problems Right Now
+                </>
+            )
                 
             }
             </ul>
