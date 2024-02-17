@@ -20,6 +20,7 @@ const CodeEditor = ({setCode ,setLanguageapi ,setId}) => {
     console.log(sl.name);
     setLanguageapi(sl.name);
     setLanguage(sl);
+
     setId(sl.id);
   }; 
 

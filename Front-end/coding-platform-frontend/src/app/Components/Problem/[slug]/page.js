@@ -78,19 +78,20 @@ export default function ProblemsSets  ({params})  {
 
       // post request for the submission of code
       if(id != null){
-      const options = {
-        method: 'POST',
-        url: 'https://judge0-ce.p.rapidapi.com/submissions',
-        params: {
-          base64_encoded: 'true',
-          fields: '*'
-        },
-        headers: {
-          'content-type': 'application/json',
-          'Content-Type': 'application/json',
-          'X-RapidAPI-Key': 'c57044529amsh40f0210b6269090p1e8d62jsn94da47e1fa32',
-          'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
-        },
+        
+        const options = {
+          method: 'POST',
+          url: 'https://judge0-ce.p.rapidapi.com/submissions',
+          params: {
+            base64_encoded: 'true',
+            fields: '*'
+          },
+          headers: {
+            'content-type': 'application/json',
+            'Content-Type': 'application/json',
+            'X-RapidAPI-Key': 'b1b8f27546msh78da1074077ff82p119b5ajsnbff0dcb6a47f',
+            'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+          },
         data: {
           language_id: `${id}`,
           source_code: base64_encode(code),
@@ -123,7 +124,7 @@ export default function ProblemsSets  ({params})  {
           const getoptions = {
             method: 'GET',
             headers: {
-              'X-RapidAPI-Key': 'c57044529amsh40f0210b6269090p1e8d62jsn94da47e1fa32',
+              'X-RapidAPI-Key': 'b1b8f27546msh78da1074077ff82p119b5ajsnbff0dcb6a47f',
               'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
             }
           };
