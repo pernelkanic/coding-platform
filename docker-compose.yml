@@ -11,7 +11,7 @@ services:
       - "--config"
       - "/etc/ngrok.yml"
     environment: 
-      NGROK_AUTHTOKEN: 2bzpviRtPHXyaMBR0fkJRKwFszQ_ru4VeYG5rNyGYAPsVHBZ
+      NGROK_AUTHTOKEN: //fill it
     volumes:
       - ./ngrok.yml:/etc/ngrok.yml
     ports:
