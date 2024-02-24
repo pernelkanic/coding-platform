@@ -1,0 +1,6 @@
+version: 2
+tunnels:
+  httpbin:
+    proto: http
+    addr: frontend:3000
+    domain: deep-singular-tick.ngrok-free.app

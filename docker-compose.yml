@@ -1,11 +1,30 @@
 version: "3.8"
-services: 
+
+
+services:
+  ngrok:
+    image: ngrok/ngrok:latest
+    restart: unless-stopped
+    command:
+      - "start"
+      - "--all"
+      - "--config"
+      - "/etc/ngrok.yml"
+    environment: 
+      NGROK_AUTHTOKEN: 2bzpviRtPHXyaMBR0fkJRKwFszQ_ru4VeYG5rNyGYAPsVHBZ
+    volumes:
+      - ./ngrok.yml:/etc/ngrok.yml
+    ports:
+      - 4040:4040
+    depends_on:
+      - frontend
   frontend:
     container_name: leetcode-compose
     build:
       context: Front-end/coding-platform-frontend #if your Dockerfile is not at the same level change the path here (./frontend)
     ports:
       - 3000:3000
+    
     depends_on:
       - backend
 
